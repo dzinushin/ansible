@@ -1,0 +1,12 @@
+---
+# This playbook clone git repo and checkout by commit
+- name: Git clone
+  hosts: 127.0.0.1
+  connection: local
+
+  tasks:
+    - name: Clone github repository
+      git:
+        repo: https://github.com/cloudfoundry/bosh-deployment
+        version: 7fad441
+        dest: /repo/bosh-deployment
