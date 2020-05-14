@@ -1,0 +1,10 @@
+server {
+    domain {{ base_domain }}
+    location / {
+        root /data/www;
+    }
+
+    location /images/ {
+        root /data;
+    }
+}

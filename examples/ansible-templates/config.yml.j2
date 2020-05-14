@@ -1,0 +1,18 @@
+---
+- type: replace
+  path: /instance_groups/-
+  value:
+    name: nginx-ote
+    instances: 1
+    azs: [ z1 ]
+    vm_type: nginx-edge
+    persistent_disk_type: 5GB
+    stemcell: default
+    jobs:
+    - name: openresty-nginx
+      release: nginx-lua-bosh
+      provides:
+        http-server: nil
+      properties:
+        nginx_conf: |
+{{ nginx_conf | indent( width=10, indentfirst=True) }}

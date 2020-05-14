@@ -1,0 +1,12 @@
+---
+- name: Template file example
+  hosts: 127.0.0.1
+  connection: local
+  vars:
+    nginx_conf: "{{ lookup('file', 'nginx.conf') }}"
+
+  tasks:
+    - name: template config.yml
+      template:
+        src: config.yml.j2
+        dest: config.yml

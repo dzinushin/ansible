@@ -1,0 +1,12 @@
+- name: template nginx.conf
+  local_action:
+    module: template
+    src: "{{ item }}"
+    dest: "{{ item | basename | regex_replace('.j2','') }}"
+  with_fileglob:
+    - templates/configs/*.j2
+
+- name: template config.yml that includes content of templated on prev step nginx.conf
+  template:
+    src: opfiles/config.yml.j2
+    dest: "{{ dest_path }}/config.yml"

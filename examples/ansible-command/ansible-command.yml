@@ -1,0 +1,21 @@
+---
+- name: Git clone
+  hosts: 127.0.0.1
+  connection: local
+
+  tasks:
+    - name: check
+      command: /tmp/mc --version
+      register: mc_cli_version
+      ignore_errors: True
+
+    - name: Print debug message
+      debug:
+        msg: "{{ mc_cli_version }}"
+
+    - name: download minio-client
+      get_url:
+        url: https://dl.min.io/client/mc/release/darwin-amd64/mc.RELEASE.2020-05-06T18-00-07Z
+        dest: /tmp/mc
+        mode: 0777
+      when: mc_cli_version.failed or mc_cli_version.stdout!='mc version RELEASE.2020-05-06T18-00-07Z'
